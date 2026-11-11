@@ -77,7 +77,7 @@ export function AdminOrdersTable() {
         <EmptyState icon={InboxIcon} title="Замовлень не знайдено" />
       ) : (
         <>
-          <div className="overflow-x-auto rounded-xl border">
+          <div className="overflow-x-auto rounded-2xl border bg-card">
             <Table>
               <TableHeader>
                 <TableRow>

@@ -62,7 +62,7 @@ function ProductGridSkeleton() {
   return (
     <ul className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4" aria-busy="true">
       {SKELETON_KEYS.map((key) => (
-        <li key={key} className="flex flex-col overflow-hidden rounded-xl border">
+        <li key={key} className="flex flex-col overflow-hidden rounded-2xl border bg-card">
           <Skeleton className="aspect-[4/3] w-full rounded-none" />
           <div className="flex flex-col gap-2 p-4">
             <Skeleton className="h-3 w-1/3" />

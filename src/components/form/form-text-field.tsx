@@ -5,6 +5,11 @@ import { Field, FieldDescription, FieldError, FieldLabel } from '@/components/ui
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
+import { PasswordInput } from './password-input'
+
+/** Input look from the Figma mockups: taller field on a light grey fill. */
+const FIELD_CLASS = 'h-10 bg-muted px-3 dark:bg-input/30'
+
 type FormTextFieldProps<T extends FieldValues, TOutput extends FieldValues> = {
   control: Control<T, unknown, TOutput>
   name: FieldPath<T>
@@ -46,9 +51,12 @@ export function FormTextField<T extends FieldValues, TOutput extends FieldValues
                 {...controlProps}
                 placeholder={inputProps.placeholder}
                 disabled={inputProps.disabled}
+                className="bg-muted dark:bg-input/30"
               />
+            ) : inputProps.type === 'password' ? (
+              <PasswordInput {...controlProps} {...inputProps} className={FIELD_CLASS} />
             ) : (
-              <Input {...controlProps} {...inputProps} />
+              <Input {...controlProps} {...inputProps} className={FIELD_CLASS} />
             )}
             {description && (
               <FieldDescription id={`${id}-description`}>{description}</FieldDescription>

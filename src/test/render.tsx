@@ -15,17 +15,19 @@ type RenderOptions = {
   routes?: RouteObject[]
   /** Path pattern the element is mounted at (default `*`). */
   path?: string
+  /** Child routes rendered in the element's <Outlet /> (for layout routes such as guards). */
+  children?: RouteObject[]
 }
 
 /** Renders inside a fresh QueryClient (no retries) and an in-memory router. */
 export function renderWithProviders(
   ui: ReactElement,
-  { route = '/', routes = [], path = '*' }: RenderOptions = {},
+  { route = '/', routes = [], path = '*', children }: RenderOptions = {},
 ) {
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
   })
-  const router = createMemoryRouter([{ path, element: ui }, ...routes], {
+  const router = createMemoryRouter([{ path, element: ui, children }, ...routes], {
     initialEntries: [route],
   })
   const user = userEvent.setup()

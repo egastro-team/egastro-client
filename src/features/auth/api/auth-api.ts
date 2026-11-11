@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { toast } from 'sonner'
 
 import { apiClient } from '@/lib/api-client'
 import { userSchema, type User } from '@/lib/api-schemas'
@@ -32,7 +33,10 @@ export function useLogin() {
   const setSession = useAuthStore((s) => s.setSession)
   return useMutation({
     mutationFn: login,
-    onSuccess: (session) => setSession(session),
+    onSuccess: (session) => {
+      setSession(session)
+      toast.success('Ви увійшли в акаунт')
+    },
   })
 }
 
@@ -44,7 +48,10 @@ export function useRegister() {
       await register(credentials)
       return login(credentials)
     },
-    onSuccess: (session) => setSession(session),
+    onSuccess: (session) => {
+      setSession(session)
+      toast.success('Акаунт створено. Ласкаво просимо до єГастро!')
+    },
   })
 }
 

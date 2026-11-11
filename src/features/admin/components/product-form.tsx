@@ -91,7 +91,11 @@ export function ProductForm({
   })
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex max-w-2xl flex-col gap-6">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="flex max-w-2xl flex-col gap-6 rounded-2xl border bg-card p-4 sm:p-6"
+    >
       <FieldGroup>
         <FormTextField control={form.control} name="name" label="Назва" />
         <div className="grid gap-6 sm:grid-cols-2">

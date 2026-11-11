@@ -1,10 +1,12 @@
+import { XIcon } from 'lucide-react'
 import { useLocation } from 'react-router'
 
 import { AddToCartButton } from '@/features/cart'
 import {
-  CatalogToolbar,
   CategoryNav,
   ProductGrid,
+  PromoBanner,
+  SortSelect,
   useCatalogParams,
   useCategories,
   useProducts,
@@ -22,69 +24,73 @@ export function CatalogPage() {
   const categories = useCategories()
 
   const activeCategory = categories.data?.find((category) => category.id === params.category)
-  const title = activeCategory?.name ?? 'Усі товари'
+  const title = activeCategory ? `Каталог: ${activeCategory.name}` : 'Каталог'
   const total = products.data?.totalElements
+  const showBanner = !params.q && !params.category && params.page === 1
 
   return (
     <PageContainer>
-      <PageHeading
-        title={title}
-        description={
-          params.q
-            ? `Результати пошуку «${params.q}»${total !== undefined ? `: ${total}` : ''}`
-            : total !== undefined
-              ? `${total} ${pluralize(total, 'товар', 'товари', 'товарів')}`
-              : undefined
-        }
-      />
-      <div className="grid gap-6 lg:grid-cols-[14rem_1fr]">
-        <aside className="lg:sticky lg:top-20 lg:self-start">
-          <CategoryNav
-            activeCategoryId={params.category}
-            hrefFor={(category) => params.buildSearch({ category }) || '/'}
-          />
-        </aside>
-        <div className="flex min-w-0 flex-col gap-6">
-          <CatalogToolbar
-            key={params.q ?? ''}
-            query={params.q}
-            sort={params.sort}
-            onSearch={(q) => params.update({ q })}
-            onSortChange={(sort) => params.update({ sort })}
-          />
-          <ProductGrid
-            products={products.data?.content}
-            isPending={products.isPending}
-            error={products.error}
-            onRetry={() => products.refetch()}
-            backSearch={location.search}
-            renderAction={(product) => (
-              <AddToCartButton
-                productId={product.id}
-                productName={product.name}
-                available={product.available}
-              />
-            )}
-            emptyAction={
-              params.q || params.category ? (
-                <Button
-                  variant="outline"
-                  onClick={() => params.update({ q: null, category: null })}
-                >
-                  Скинути фільтри
-                </Button>
-              ) : undefined
+      {showBanner && <PromoBanner />}
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <PageHeading
+            title={title}
+            description={
+              total !== undefined
+                ? `${total} ${pluralize(total, 'товар', 'товари', 'товарів')}`
+                : undefined
             }
           />
-          {products.data && (
-            <PaginationNav
-              page={params.page}
-              totalPages={products.data.totalPages}
-              hrefFor={(page) => params.buildSearch({ page }) || '/'}
-            />
-          )}
+          <SortSelect value={params.sort} onChange={(sort) => params.update({ sort })} />
         </div>
+        <CategoryNav
+          activeCategoryId={params.category}
+          hrefFor={(category) => params.buildSearch({ category }) || '/'}
+        />
+        {params.q && (
+          <div className="flex flex-wrap items-center gap-2 text-sm">
+            <span className="text-muted-foreground">Результати пошуку:</span>
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full"
+              onClick={() => params.update({ q: null })}
+              aria-label={`Скинути пошук «${params.q}»`}
+            >
+              «{params.q}»
+              <XIcon />
+            </Button>
+          </div>
+        )}
       </div>
+      <ProductGrid
+        products={products.data?.content}
+        isPending={products.isPending}
+        error={products.error}
+        onRetry={() => products.refetch()}
+        backSearch={location.search}
+        renderAction={(product) => (
+          <AddToCartButton
+            productId={product.id}
+            productName={product.name}
+            available={product.available}
+          />
+        )}
+        emptyAction={
+          params.q || params.category ? (
+            <Button variant="outline" onClick={() => params.update({ q: null, category: null })}>
+              Скинути фільтри
+            </Button>
+          ) : undefined
+        }
+      />
+      {products.data && (
+        <PaginationNav
+          page={params.page}
+          totalPages={products.data.totalPages}
+          hrefFor={(page) => params.buildSearch({ page }) || '/'}
+        />
+      )}
     </PageContainer>
   )
 }

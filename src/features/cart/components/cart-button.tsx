@@ -14,7 +14,7 @@ export function CartButton() {
   const label = count > 0 ? `Кошик, товарів: ${count}` : 'Кошик'
 
   return (
-    <Button variant="ghost" size="icon" asChild className="relative">
+    <Button variant="ghost" size="icon-lg" asChild className="relative rounded-full">
       <Link to="/cart" aria-label={label}>
         <ShoppingCartIcon />
         {count > 0 && (

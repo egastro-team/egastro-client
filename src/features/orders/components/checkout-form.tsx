@@ -42,7 +42,11 @@ export function CheckoutForm({ disabled = false }: CheckoutFormProps) {
   })
 
   return (
-    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-6">
+    <form
+      onSubmit={onSubmit}
+      noValidate
+      className="flex flex-col gap-6 rounded-2xl border bg-card p-4 sm:p-6"
+    >
       <FieldGroup>
         <FormTextField
           control={form.control}

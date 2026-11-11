@@ -1,6 +1,7 @@
 import { Outlet, ScrollRestoration } from 'react-router'
 
 import { CartButton } from '@/features/cart'
+import { HeaderSearch } from '@/features/catalog'
 import { useCurrentUserSync, UserMenu } from '@/features/auth'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
@@ -18,10 +19,10 @@ export function RootLayout() {
         Перейти до вмісту
       </a>
       <SiteHeader
+        search={<HeaderSearch />}
         actions={
           <>
             <CartButton />
-            <ThemeToggle />
             <UserMenu />
           </>
         }
@@ -29,7 +30,7 @@ export function RootLayout() {
       <main id="main" className="flex flex-1 flex-col">
         <Outlet />
       </main>
-      <SiteFooter />
+      <SiteFooter actions={<ThemeToggle />} />
       <ScrollRestoration />
     </div>
   )

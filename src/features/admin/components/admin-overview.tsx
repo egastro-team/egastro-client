@@ -52,7 +52,7 @@ function StatCard({ to, icon: Icon, label, value, isError }: StatCardProps) {
     <li>
       <Link
         to={to}
-        className="flex flex-col gap-3 rounded-xl border bg-card p-4 transition-colors outline-none hover:bg-muted/50 focus-visible:ring-3 focus-visible:ring-ring/50"
+        className="flex flex-col gap-3 rounded-2xl border bg-card p-4 transition-colors outline-none hover:bg-muted/50 focus-visible:ring-3 focus-visible:ring-ring/50"
       >
         <Icon className="size-5 text-primary" aria-hidden />
         {isError ? (

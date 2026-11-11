@@ -51,7 +51,7 @@ export function CategoryManager() {
           description="Створіть першу категорію, щоб додавати товари."
         />
       ) : (
-        <ul className="divide-y rounded-xl border">
+        <ul className="divide-y rounded-2xl border bg-card">
           {categories.map((category) => (
             <li key={category.id} className="flex items-center gap-2 px-4 py-2">
               <span className="flex-1 truncate">{category.name}</span>

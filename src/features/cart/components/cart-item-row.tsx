@@ -21,7 +21,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
   const remove = useRemoveCartItem()
 
   return (
-    <li className="flex gap-3 py-4 sm:gap-4">
+    <li className="flex gap-3 rounded-2xl border bg-card p-3 sm:gap-4 sm:p-4">
       <Link to={`/products/${item.productId}`} className="shrink-0" tabIndex={-1} aria-hidden>
         <ProductImage src={item.imageUrl} alt="" className="size-20 rounded-lg border sm:size-24" />
       </Link>

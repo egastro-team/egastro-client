@@ -1,11 +1,22 @@
+import type { ReactNode } from 'react'
+
+import { BrandName } from './brand-name'
+
 const CURRENT_YEAR = new Date().getFullYear()
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  actions?: ReactNode
+}
+
+export function SiteFooter({ actions }: SiteFooterProps) {
   return (
-    <footer className="border-t">
-      <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-6 text-sm text-muted-foreground sm:flex-row sm:justify-between">
-        <p>© {CURRENT_YEAR} єГастро</p>
-        <p>Розумний кошик: рекомендації на основі аналізу покупок</p>
+    <footer className="border-t bg-card">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-5 text-sm text-muted-foreground">
+        <p>
+          © {CURRENT_YEAR} <BrandName className="font-semibold" /> — розумний кошик для ваших
+          покупок
+        </p>
+        {actions}
       </div>
     </footer>
   )

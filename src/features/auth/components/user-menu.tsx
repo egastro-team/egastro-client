@@ -1,4 +1,4 @@
-import { LogOutIcon, PackageIcon, ShieldIcon, UserIcon } from 'lucide-react'
+import { LogOutIcon, PackageIcon, ShieldIcon, SparklesIcon, UserIcon } from 'lucide-react'
 import { Link } from 'react-router'
 
 import { Button } from '@/components/ui/button'
@@ -21,21 +21,18 @@ export function UserMenu() {
 
   if (!isAuthenticated || !user) {
     return (
-      <div className="flex items-center gap-1">
-        <Button variant="ghost" asChild>
-          <Link to="/login">Увійти</Link>
-        </Button>
-        <Button asChild className="hidden sm:inline-flex">
-          <Link to="/register">Реєстрація</Link>
-        </Button>
-      </div>
+      <Button variant="ghost" size="icon-lg" asChild className="rounded-full">
+        <Link to="/login" aria-label="Увійти">
+          <UserIcon />
+        </Link>
+      </Button>
     )
   }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Меню акаунта">
+        <Button variant="ghost" size="icon-lg" aria-label="Меню акаунта" className="rounded-full">
           <UserIcon />
         </Button>
       </DropdownMenuTrigger>
@@ -47,6 +44,12 @@ export function UserMenu() {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link to="/recommendations">
+            <SparklesIcon />
+            Рекомендації для вас
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/orders">
             <PackageIcon />

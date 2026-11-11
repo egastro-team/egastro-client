@@ -52,7 +52,7 @@ export function CartView() {
   return (
     <div className="flex flex-col gap-10">
       <div className="grid items-start gap-6 lg:grid-cols-[1fr_20rem]">
-        <ul className="divide-y rounded-xl border px-4" aria-label="Товари в кошику">
+        <ul className="flex flex-col gap-3" aria-label="Товари в кошику">
           {cart.items.map((item) => (
             <CartItemRow key={item.productId} item={item} />
           ))}

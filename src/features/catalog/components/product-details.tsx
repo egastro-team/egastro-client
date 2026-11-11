@@ -13,7 +13,7 @@ type ProductDetailsProps = {
 
 export function ProductDetails({ product, action }: ProductDetailsProps) {
   return (
-    <article className="grid gap-6 md:grid-cols-2 md:gap-10">
+    <article className="grid gap-6 rounded-2xl border bg-card p-4 sm:p-6 md:grid-cols-2 md:gap-10">
       <ProductImage
         src={product.imageUrl}
         alt={product.name}

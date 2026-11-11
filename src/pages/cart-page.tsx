@@ -5,7 +5,7 @@ import { PageHeading } from '@/components/layout/page-heading'
 export function CartPage() {
   return (
     <PageContainer>
-      <PageHeading title="Кошик" />
+      <PageHeading title="Ваш кошик" />
       <CartView />
     </PageContainer>
   )

@@ -20,7 +20,7 @@ export function OrderInfo({ order, extra = [] }: OrderInfoProps) {
     ...(order.comment ? [{ label: 'Коментар', value: order.comment }] : []),
   ]
   return (
-    <dl className="grid gap-3 rounded-xl border p-4 text-sm sm:grid-cols-[10rem_1fr]">
+    <dl className="grid gap-3 rounded-2xl border bg-card p-4 text-sm sm:grid-cols-[10rem_1fr]">
       {rows.map((row) => (
         <div key={row.label} className="contents">
           <dt className="text-muted-foreground">{row.label}</dt>

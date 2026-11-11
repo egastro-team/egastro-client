@@ -58,7 +58,12 @@ export function AddToCartButton({
 
   if (!available) {
     return (
-      <Button variant="outline" disabled size={variant === 'full' ? 'lg' : 'default'}>
+      <Button
+        variant="outline"
+        disabled
+        size="lg"
+        className={variant === 'compact' ? 'h-9 w-full rounded-full' : 'h-10'}
+      >
         Немає в наявності
       </Button>
     )
@@ -67,12 +72,14 @@ export function AddToCartButton({
   if (variant === 'compact') {
     return (
       <Button
-        size="icon-lg"
+        size="lg"
+        className="h-9 w-full rounded-full"
         onClick={handleAdd}
         disabled={addToCart.isPending || (isAuthenticated && maxToAdd === 0)}
         aria-label={`Додати «${productName}» в кошик`}
       >
         {addToCart.isSuccess && !addToCart.isPending ? <CheckIcon /> : <ShoppingCartIcon />}
+        {addToCart.isSuccess && !addToCart.isPending ? 'У кошику' : 'У кошик'}
       </Button>
     )
   }

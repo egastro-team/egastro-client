@@ -101,7 +101,7 @@ export function AdminProductsTable() {
       ) : (
         <>
           <p className="text-sm text-muted-foreground">Знайдено: {products.data.totalElements}</p>
-          <div className="overflow-x-auto rounded-xl border">
+          <div className="overflow-x-auto rounded-2xl border bg-card">
             <Table>
               <TableHeader>
                 <TableRow>

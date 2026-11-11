@@ -59,7 +59,10 @@ export function ProductPage() {
           />
         </>
       ) : product.isPending ? (
-        <div className="grid gap-6 md:grid-cols-2 md:gap-10" aria-busy="true">
+        <div
+          className="grid gap-6 rounded-2xl border bg-card p-4 sm:p-6 md:grid-cols-2 md:gap-10"
+          aria-busy="true"
+        >
           <Skeleton className="aspect-[4/3] w-full rounded-2xl" />
           <div className="flex flex-col gap-4">
             <Skeleton className="h-4 w-24" />

@@ -16,9 +16,9 @@ export function CategoryNav({ activeCategoryId, hrefFor }: CategoryNavProps) {
 
   if (isPending) {
     return (
-      <div className="flex gap-2 lg:flex-col">
+      <div className="flex gap-2">
         {['a', 'b', 'c', 'd'].map((key) => (
-          <Skeleton key={key} className="h-8 w-24 lg:w-full" />
+          <Skeleton key={key} className="h-9 w-24 rounded-full" />
         ))}
       </div>
     )
@@ -39,7 +39,7 @@ export function CategoryNav({ activeCategoryId, hrefFor }: CategoryNavProps) {
 
   return (
     <nav aria-label="Категорії">
-      <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-col lg:gap-1 lg:overflow-visible lg:px-0">
+      <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
         {items.map((category) => {
           const active = (category.id ?? undefined) === activeCategoryId
           return (
@@ -48,10 +48,10 @@ export function CategoryNav({ activeCategoryId, hrefFor }: CategoryNavProps) {
                 to={hrefFor(category.id)}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'flex h-8 items-center rounded-full border px-3 text-sm whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 lg:h-9 lg:rounded-lg lg:border-transparent',
+                  'flex h-9 items-center rounded-full border px-4 text-sm font-medium whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50',
                   active
-                    ? 'border-primary bg-primary text-primary-foreground lg:border-transparent'
-                    : 'hover:bg-muted',
+                    ? 'border-primary bg-primary text-primary-foreground'
+                    : 'bg-card hover:border-primary/40 hover:bg-accent hover:text-accent-foreground',
                 )}
               >
                 {category.name}

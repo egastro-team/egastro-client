@@ -19,7 +19,7 @@ type OrderItemsTableProps = {
 /** Order lines are snapshots taken at checkout, so they are shown without catalog links. */
 export function OrderItemsTable({ items, totalAmount }: OrderItemsTableProps) {
   return (
-    <div className="overflow-x-auto rounded-xl border">
+    <div className="overflow-x-auto rounded-2xl border bg-card">
       <Table>
         <TableHeader>
           <TableRow>

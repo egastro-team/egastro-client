@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router'
-import { toast } from 'sonner'
+import { Link } from 'react-router'
 
 import { FormErrorAlert } from '@/components/form/form-error-alert'
 import { FormTextField } from '@/components/form/form-text-field'
@@ -16,7 +15,6 @@ import { useRedirectTarget } from '../hooks/use-redirect-target'
 import { registerFormSchema, type RegisterFormValues } from '../schemas'
 
 export function RegisterForm() {
-  const navigate = useNavigate()
   const redirectTarget = useRedirectTarget()
   const registerMutation = useRegister()
   const [serverError, setServerError] = useState<string | null>(null)
@@ -31,10 +29,7 @@ export function RegisterForm() {
     registerMutation.mutate(
       { email, password },
       {
-        onSuccess: () => {
-          toast.success('Акаунт створено. Ласкаво просимо до єГастро!')
-          navigate(redirectTarget ?? '/', { replace: true })
-        },
+        // Success navigation happens in GuestOnly (see LoginForm).
         onError: (error) => {
           if (getApiStatus(error) === 409) {
             form.setError('email', { type: 'server', message: getErrorMessage(error) })
@@ -52,10 +47,10 @@ export function RegisterForm() {
         <FormTextField
           control={form.control}
           name="email"
-          label="Email"
+          label="Електронна пошта"
           type="email"
           autoComplete="email"
-          placeholder="you@example.com"
+          placeholder="mail@example.com"
         />
         <FormTextField
           control={form.control}
@@ -63,25 +58,24 @@ export function RegisterForm() {
           label="Пароль"
           type="password"
           autoComplete="new-password"
-          description="Від 8 символів, щонайменше одна цифра."
         />
         <FormTextField
           control={form.control}
           name="confirmPassword"
-          label="Підтвердження пароля"
+          label="Повторіть пароль"
           type="password"
           autoComplete="new-password"
         />
       </FieldGroup>
       <FormErrorAlert message={serverError} />
-      <Button type="submit" size="lg" disabled={registerMutation.isPending}>
-        {registerMutation.isPending ? 'Створюємо акаунт…' : 'Зареєструватися'}
+      <Button type="submit" size="lg" className="h-10" disabled={registerMutation.isPending}>
+        {registerMutation.isPending ? 'Створюємо акаунт…' : 'Зареєструватись'}
       </Button>
       <p className="text-center text-sm text-muted-foreground">
-        Вже маєте акаунт?{' '}
+        Вже є акаунт?{' '}
         <Link
           to={redirectTarget ? `/login?redirect=${encodeURIComponent(redirectTarget)}` : '/login'}
-          className="font-medium text-primary underline-offset-4 hover:underline"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
         >
           Увійти
         </Link>

@@ -22,7 +22,7 @@ export function ProductCard({ product, backSearch, action, footnote }: ProductCa
   return (
     <article
       className={cn(
-        'group/card relative flex flex-col overflow-hidden rounded-xl border bg-card text-card-foreground transition-shadow hover:shadow-md',
+        'group/card relative flex flex-col overflow-hidden rounded-2xl border bg-card text-card-foreground transition-shadow hover:shadow-md',
         !product.available && 'opacity-75',
       )}
     >
@@ -39,7 +39,7 @@ export function ProductCard({ product, backSearch, action, footnote }: ProductCa
       <div className="flex flex-1 flex-col gap-3 p-3 sm:p-4">
         <div className="flex flex-1 flex-col gap-1">
           <p className="text-xs text-muted-foreground">{product.categoryName}</p>
-          <h3 className="line-clamp-2 leading-snug font-medium">
+          <h3 className="line-clamp-2 leading-snug font-semibold">
             <Link
               to={`/products/${product.id}`}
               state={backSearch !== undefined ? { backSearch } : undefined}
@@ -49,17 +49,15 @@ export function ProductCard({ product, backSearch, action, footnote }: ProductCa
             </Link>
           </h3>
         </div>
-        <div className="flex flex-wrap items-end justify-between gap-2">
-          <p className="flex items-baseline gap-1">
-            <span className="text-lg font-semibold">{formatPrice(product.price)}</span>
-            <span className="text-xs text-muted-foreground">
-              / {UNIT_LABELS[product.unitOfMeasure]}
-            </span>
-          </p>
-          {/* Actions sit above the stretched link so they stay clickable. */}
-          {action && <div className="relative z-10">{action}</div>}
-        </div>
+        <p className="flex items-baseline gap-1">
+          <span className="text-lg font-bold">{formatPrice(product.price)}</span>
+          <span className="text-xs text-muted-foreground">
+            / {UNIT_LABELS[product.unitOfMeasure]}
+          </span>
+        </p>
         {footnote && <div className="relative z-10">{footnote}</div>}
+        {/* Actions sit above the stretched link so they stay clickable. */}
+        {action && <div className="relative z-10">{action}</div>}
       </div>
     </article>
   )

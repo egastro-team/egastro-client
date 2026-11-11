@@ -44,4 +44,5 @@ export const cartRecommendationsSchema = z.object({
 export type CartRecommendations = z.infer<typeof cartRecommendationsSchema>
 
 export const CART_MAX_QUANTITY = 99
-export const RECOMMENDATIONS_LIMIT = 4
+export const RECOMMENDATIONS_LIMIT = 3
+export const RECOMMENDATIONS_PAGE_LIMIT = 12

@@ -3,20 +3,9 @@ import { SearchIcon, XIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 
-import {
-  PRODUCT_SORT_LABELS,
-  productSortSchema,
-  SEARCH_MAX_LENGTH,
-  type ProductSort,
-} from '../schemas'
+import { SEARCH_MAX_LENGTH, type ProductSort } from '../schemas'
+import { SortSelect } from './sort-select'
 
 type CatalogToolbarProps = {
   query?: string
@@ -74,24 +63,7 @@ export function CatalogToolbar({ query, sort, onSearch, onSortChange }: CatalogT
           Знайти
         </Button>
       </form>
-      <Select
-        value={sort}
-        onValueChange={(value) => {
-          const parsed = productSortSchema.safeParse(value)
-          if (parsed.success) onSortChange(parsed.data)
-        }}
-      >
-        <SelectTrigger className="h-9 w-full sm:w-52" aria-label="Сортування">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          {productSortSchema.options.map((option) => (
-            <SelectItem key={option} value={option}>
-              {PRODUCT_SORT_LABELS[option]}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <SortSelect value={sort} onChange={onSortChange} />
     </div>
   )
 }

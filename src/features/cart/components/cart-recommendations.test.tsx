@@ -26,7 +26,9 @@ describe('CartRecommendations', () => {
       },
     })
     renderWithProviders(<CartRecommendations limit={4} />)
-    expect(await screen.findByRole('heading', { name: 'Часто купують разом' })).toBeInTheDocument()
+    expect(
+      await screen.findByRole('heading', { name: 'З цим товаром часто купують' }),
+    ).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Bread' })).toBeInTheDocument()
     expect(screen.getByText(/41\s?% беруть разом/)).toBeInTheDocument()
     expect(get).toHaveBeenCalledWith('/cart/recommendations', { params: { limit: 4 } })

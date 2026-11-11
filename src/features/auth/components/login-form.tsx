@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router'
-import { toast } from 'sonner'
+import { Link } from 'react-router'
 
 import { FormErrorAlert } from '@/components/form/form-error-alert'
 import { FormTextField } from '@/components/form/form-text-field'
@@ -16,7 +15,6 @@ import { useRedirectTarget } from '../hooks/use-redirect-target'
 import { loginFormSchema, type LoginFormValues } from '../schemas'
 
 export function LoginForm() {
-  const navigate = useNavigate()
   const redirectTarget = useRedirectTarget()
   const login = useLogin()
   const [serverError, setServerError] = useState<string | null>(null)
@@ -28,11 +26,9 @@ export function LoginForm() {
 
   const onSubmit = form.handleSubmit((values) => {
     setServerError(null)
+    // Success navigation happens in GuestOnly: the session update unmounts this form,
+    // so per-call onSuccess callbacks would never run.
     login.mutate(values, {
-      onSuccess: ({ user }) => {
-        toast.success('Ви увійшли в акаунт')
-        navigate(redirectTarget ?? (user.role === 'ADMIN' ? '/admin' : '/'), { replace: true })
-      },
       onError: (error) => {
         // One generic message for unknown email and wrong password alike (story DJTJ-25, AC 2).
         if (getApiStatus(error) === 401) {
@@ -50,10 +46,10 @@ export function LoginForm() {
         <FormTextField
           control={form.control}
           name="email"
-          label="Email"
+          label="Електронна пошта"
           type="email"
           autoComplete="email"
-          placeholder="you@example.com"
+          placeholder="mail@example.com"
         />
         <FormTextField
           control={form.control}
@@ -64,20 +60,20 @@ export function LoginForm() {
         />
       </FieldGroup>
       <FormErrorAlert message={serverError} />
-      <Button type="submit" size="lg" disabled={login.isPending}>
+      <Button type="submit" size="lg" className="h-10" disabled={login.isPending}>
         {login.isPending ? 'Входимо…' : 'Увійти'}
       </Button>
       <p className="text-center text-sm text-muted-foreground">
-        Ще немає акаунта?{' '}
+        Немає акаунту?{' '}
         <Link
           to={
             redirectTarget
               ? `/register?redirect=${encodeURIComponent(redirectTarget)}`
               : '/register'
           }
-          className="font-medium text-primary underline-offset-4 hover:underline"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
         >
-          Зареєструватися
+          Створити зараз
         </Link>
       </p>
     </form>

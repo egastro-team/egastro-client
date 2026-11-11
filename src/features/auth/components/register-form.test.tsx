@@ -11,10 +11,10 @@ async function fill(
   password: string,
   confirm = password,
 ) {
-  await user.type(screen.getByLabelText('Email'), 'new@example.com')
+  await user.type(screen.getByLabelText('Електронна пошта'), 'new@example.com')
   await user.type(screen.getByLabelText('Пароль'), password)
-  await user.type(screen.getByLabelText('Підтвердження пароля'), confirm)
-  await user.click(screen.getByRole('button', { name: 'Зареєструватися' }))
+  await user.type(screen.getByLabelText('Повторіть пароль'), confirm)
+  await user.click(screen.getByRole('button', { name: 'Зареєструватись' }))
 }
 
 describe('RegisterForm', () => {
@@ -34,8 +34,8 @@ describe('RegisterForm', () => {
 
   it('validates the email format', async () => {
     const { user } = renderWithProviders(<RegisterForm />)
-    await user.type(screen.getByLabelText('Email'), 'not-an-email')
-    await user.click(screen.getByRole('button', { name: 'Зареєструватися' }))
+    await user.type(screen.getByLabelText('Електронна пошта'), 'not-an-email')
+    await user.click(screen.getByRole('button', { name: 'Зареєструватись' }))
     expect(await screen.findByText('Некоректний формат email')).toBeInTheDocument()
   })
 

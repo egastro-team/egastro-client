@@ -3,7 +3,7 @@ import { AuthCard } from '@/components/layout/auth-card'
 
 export function RegisterPage() {
   return (
-    <AuthCard title="Реєстрація" description="Створіть акаунт за хвилину">
+    <AuthCard title="Створити акаунт">
       <RegisterForm />
     </AuthCard>
   )
