@@ -19,6 +19,12 @@ export default defineConfig({
       '/api': {
         target: process.env.VITE_API_PROXY_TARGET ?? 'http://localhost:8080',
         changeOrigin: true,
+        // Proxied calls are same-origin for the browser, so CORS does not apply. Drop the
+        // Origin header: otherwise the backend rejects any dev port outside its allow-list
+        // (3000/5173) with 403 "Invalid CORS request", e.g. when Vite falls back to :5174.
+        configure: (proxy) => {
+          proxy.on('proxyReq', (proxyReq) => proxyReq.removeHeader('origin'))
+        },
       },
     },
   },
