@@ -26,7 +26,7 @@ export function CartRecommendations({ limit = RECOMMENDATIONS_LIMIT }: CartRecom
         className="flex flex-col gap-4 rounded-2xl border border-primary/15 bg-accent p-4 sm:p-6"
       >
         <Skeleton className="h-6 w-56" />
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {Array.from({ length: limit }, (_, i) => (
             <Skeleton key={`rec-skeleton-${i}`} className="aspect-[3/4] w-full rounded-2xl" />
           ))}
@@ -78,7 +78,7 @@ export function CartRecommendations({ limit = RECOMMENDATIONS_LIMIT }: CartRecom
           </Link>
         </Button>
       </div>
-      <RecommendationGrid recommendations={data} />
+      <RecommendationGrid recommendations={data} className="lg:grid-cols-4" />
     </section>
   )
 }

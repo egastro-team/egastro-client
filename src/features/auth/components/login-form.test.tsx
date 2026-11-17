@@ -53,6 +53,17 @@ describe('LoginForm', () => {
     expect(await screen.findByText('Невірний email або пароль')).toBeInTheDocument()
   })
 
+  it('explains a temporary lockout after too many attempts', async () => {
+    vi.spyOn(apiClient, 'post').mockRejectedValue(
+      apiError(429, 'Too many login attempts', undefined, '/auth/login'),
+    )
+    const { user } = renderLogin()
+    await submit(user, 'customer@example.com', 'wrong-password1')
+    expect(
+      await screen.findByText('Забагато невдалих спроб входу. Спробуйте пізніше.'),
+    ).toBeInTheDocument()
+  })
+
   it('stores the session and returns to the redirect target', async () => {
     const post = vi.spyOn(apiClient, 'post').mockResolvedValue(loginResponse('USER'))
     const { user } = renderLogin('/login?redirect=%2Fcart')

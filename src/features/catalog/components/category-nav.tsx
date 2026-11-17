@@ -10,7 +10,7 @@ type CategoryNavProps = {
   hrefFor: (categoryId: number | null) => string
 }
 
-/** Horizontal chips on mobile, a vertical list from `lg`. The active category is highlighted. */
+/** Category chips: a scrollable row on mobile, wrapping from `sm`. The active category is highlighted. */
 export function CategoryNav({ activeCategoryId, hrefFor }: CategoryNavProps) {
   const { data: categories, isPending, isError, refetch } = useCategories()
 

@@ -33,7 +33,13 @@ export function UserMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon-lg" aria-label="Меню акаунта" className="rounded-full">
-          <UserIcon />
+          {/* Initial in a filled circle: the header shows at a glance that you are signed in. */}
+          <span
+            aria-hidden
+            className="flex size-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground uppercase"
+          >
+            {user.email.charAt(0)}
+          </span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">

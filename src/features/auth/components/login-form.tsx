@@ -31,8 +31,15 @@ export function LoginForm() {
     login.mutate(values, {
       onError: (error) => {
         // One generic message for unknown email and wrong password alike (story DJTJ-25, AC 2).
-        if (getApiStatus(error) === 401) {
+        const status = getApiStatus(error)
+        if (status === 401) {
           setServerError('Невірний email або пароль')
+          return
+        }
+        // Temporary lockout after repeated failures (DJTJ-25, AC 5). The backend does not
+        // enforce it yet; 429/423 are the statuses it is expected to use.
+        if (status === 429 || status === 423) {
+          setServerError('Забагато невдалих спроб входу. Спробуйте пізніше.')
           return
         }
         setServerError(applyServerErrors(error, form.setError, ['email', 'password']))
